@@ -9,9 +9,20 @@ const schemaUser = mongoose.Schema({
     lname: mongoose.Schema.Types.String
 })
 
-const User = mongoose.model("User", schemaUser)
+const schemaAccount = mongoose.Schema({
 
+
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    },
+    balance: mongoose.Schema.Types.Number
+
+})
+const User = mongoose.model("User", schemaUser)
+const Account = mongoose.model("Account", schemaAccount)
 
 module.exports = {
-    User
+    User,
+    Account
 }

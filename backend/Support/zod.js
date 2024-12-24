@@ -7,6 +7,12 @@ const zodUser = zod.object({
     lastname: zod.string()
 })
 
+const updateBody = zod.object({
+    password: zod.string().min(8).optional(),
+    firstname: zod.string().optional(),
+    lastname: zod.string().optional()
+})
 module.exports = {
-    zodUser
+    zodUser,
+    updateBody
 }
