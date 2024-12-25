@@ -15,9 +15,7 @@ accountRouter.get("/balance", async (req, res) => {
     })
 
     if (!foundAccount) {
-        res.json({
-            MSG: "Account not found account.js"
-        })
+        res.status(421).json({ msg: "Account not found account.js" })
         return
     }
 
@@ -36,13 +34,13 @@ accountRouter.post("/transfer", async (req, res) => {
     })
     if (!thisUserAccount) {
 
-        res.json({ message: "User Not Valid" })
+        res.status(421).json({ msg: "User Not Valid" })
         return
 
     }
     if (thisUserAccount.balance - req.body.amount < 0) {
 
-        res.json({ message: "Insufficient balance" })
+        res.status(421).json({ msg: "Insufficient balance" })
         return
     }
 
@@ -53,7 +51,7 @@ accountRouter.post("/transfer", async (req, res) => {
 
     if (!toUserAccount) {
 
-        res.json({ message: "Invalid account" })
+        res.status(421).json({ msg: "Invalid account" })
         return
     }
     await Account.updateOne({
@@ -70,7 +68,7 @@ accountRouter.post("/transfer", async (req, res) => {
 
 
     res.json({
-        message: "Transfer successful"
+        msg: "Transfer successful"
     })
 })
 module.exports = {

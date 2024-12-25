@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken")
 const { zodUser, updateBody } = require("../Support/zod");
 const { User, Account } = require("../db");
 const { middlewareUser } = require("../Support/middleware");
-const { boolean } = require("zod");
+// const { boolean } = require("zod");
 const userRouter = Router()
 
 
@@ -15,7 +15,9 @@ userRouter.post("/signup", async (req, res) => {
 
     if (!parsed.success) {
 
-        res.send("User credentials are not valid")
+        res.status(411).json({
+            msg: "User inputs are not valid"
+        })
         return
     }
     const isExsist = await User.findOne({
@@ -24,8 +26,8 @@ userRouter.post("/signup", async (req, res) => {
     console.log(isExsist)
 
     if (isExsist) {
-        res.json({
-            message: "Email already taken / Incorrect inputs"
+        res.status(411).json({
+            msg: "Email already taken / Incorrect inputs"
         })
         return
     }
@@ -43,7 +45,7 @@ userRouter.post("/signup", async (req, res) => {
     })
 
     console.log(newuser)
-    
+
     res.json({
         userId: "userId of newly added user" + newuser._id,
         // token: token
@@ -62,7 +64,7 @@ userRouter.post("/signin", async (req, res) => {
 
     if (!user) {
 
-        res.json({ message: "Error while logging in" })
+        res.status(411).json({ msg: "Username or password doesn't match" })
         return
     }
 
@@ -99,8 +101,8 @@ userRouter.put("/", async (req, res) => {
 })
 
 userRouter.get("/bulk", async (req, res) => {
-    const name = req.body.name
-
+    const name = req.query.name ? req.query.name : ""
+    // console.log("++++++++++++" + req.query.name + "++++++++++")
     const matchedUsers = await User.find({
         "$or": [
             { fname: { "$regex": name } },

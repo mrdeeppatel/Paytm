@@ -10,7 +10,7 @@ const middlewareUser = (req, res, next) => {
     if (split[0] != "Bearer" || !authorization) {
 
         res.json({
-            MSG: "Token type not valid middleware.js"
+            msg: "Token type not valid middleware.js"
         })
         return
     }
@@ -19,7 +19,7 @@ const middlewareUser = (req, res, next) => {
 
         const decoded = jwt.verify(split[1], JWT_SECRET)
 
-        console.log(decoded.userId +" middleware")
+        console.log(decoded.userId + " middleware")
 
         if (decoded.userId) {
 
@@ -28,13 +28,13 @@ const middlewareUser = (req, res, next) => {
         } else {
 
             res.json({
-                MSG: "Token doesn't have UserId"
+                msg: "Token doesn't have UserId"
             })
         }
 
     } catch (err) {
 
-        res.json({ MSG: "Token not valid middleware.js" })
+        res.json({ msg: "Token not valid middleware.js" })
     }
 
 }
