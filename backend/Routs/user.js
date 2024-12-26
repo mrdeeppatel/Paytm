@@ -72,8 +72,10 @@ userRouter.post("/signin", async (req, res) => {
         userId: user._id
     }, JWT_SECRET)
 
+    console.log(user.username)
     res.json({
-        token: token
+        token: token,
+        firstname: user.fname
     })
 
 })
@@ -101,9 +103,11 @@ userRouter.put("/", async (req, res) => {
 })
 
 userRouter.get("/bulk", async (req, res) => {
+    const _id = req.userId
     const name = req.query.name ? req.query.name : ""
     // console.log("++++++++++++" + req.query.name + "++++++++++")
     const matchedUsers = await User.find({
+        _id: { "$ne": _id },
         "$or": [
             { fname: { "$regex": name } },
             { lname: { "$regex": name } }

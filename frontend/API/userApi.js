@@ -48,10 +48,11 @@ const userSignin = async ({ email, pass }) => {
         }
     }).then(res => {
 
+        
         alert("Sign Success")
-        window.location.href = "http://localhost:5173/dashboard"
-
+        localStorage.setItem("firstname", res.data.firstname)
         document.cookie = `token=${res.data.token}; max-age=3600; path=/;`
+        window.location.href = `http://localhost:5173/dashboard`
     }).catch(err => {
 
         if (err.response) {
@@ -107,6 +108,7 @@ function getToken() {
     if (!token) {
 
         alert("No Saved token")
+        window.location.href = "http://localhost:5173/signin"
         return token
     }
 
