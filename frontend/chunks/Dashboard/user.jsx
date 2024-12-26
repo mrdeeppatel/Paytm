@@ -9,26 +9,35 @@ export const DashboardUser = () => {
     const [users, setUsers] = useState([])
     const [filter, setFilter] = useState("")
     const navigate = useNavigate()
+
     useEffect(() => {
 
-        const token = getToken()
+        const timeout = setTimeout(() => {
 
-        if (!token) {
-            alert("No Saved Token")
-            return
-        }
-
-        axios.get("http://localhost:3001/api/v1/user/bulk", {
-            params: {
-                name: filter
-            },
-            headers: {
-                Authorization: token
+            const token = getToken()
+            console.log("called")
+            if (!token) {
+                alert("No Saved Token")
+                return
             }
-        }).then(res => {
-            console.log(res.data.users)
-            setUsers(res.data.users)
-        })
+
+            axios.get("http://localhost:3001/api/v1/user/bulk", {
+                params: {
+                    name: filter
+                },
+                headers: {
+                    Authorization: token
+                }
+            }).then(res => {
+                console.log(res.data.users)
+                setUsers(res.data.users)
+            })
+
+        }, 500)
+
+        return () => {
+            clearTimeout(timeout)
+        }
 
     }, [filter])
 

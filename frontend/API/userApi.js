@@ -48,7 +48,7 @@ const userSignin = async ({ email, pass }) => {
         }
     }).then(res => {
 
-        
+
         alert("Sign Success")
         localStorage.setItem("firstname", res.data.firstname)
         document.cookie = `token=${res.data.token}; max-age=3600; path=/;`
@@ -65,28 +65,6 @@ const userSignin = async ({ email, pass }) => {
         } else {
             alert("Somthing went wrong")
         }
-    })
-}
-/////////////////////////////////////////////////////////////////////////
-const searchUser = async ({ name }) => {
-    const token = getToken()
-
-    if (!token) {
-
-        return
-    }
-
-    await axios.get("http://localhost:3001/api/v1/user/bulk", {
-        name: name ? name : ""
-    }, {
-        headers: {
-            authorization: token
-        }
-    }).then(res => {
-
-        console.log(res.data)
-        setUserListAtom(res.data)
-
     })
 }
 
@@ -117,6 +95,5 @@ function getToken() {
 export {
     userSignup,
     userSignin,
-    searchUser,
     getToken
 }

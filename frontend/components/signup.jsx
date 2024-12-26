@@ -19,17 +19,20 @@ export function SignUp() {
 
             <Helding heading={"SignUp"} subheading={"Enter your information to create an account"} />
 
-            <Input label={"First Name"} placeholder={"Jhon"} type={"text"} setState={setFirstname} />
-            <Input label={"Last Name"} placeholder={"Doe"} type={"text"} setState={setLastName} />
-            <Input label={"Email"} placeholder={"jhondeo@example.com"} type={"email"} setState={setEmail} />
-            <Input label={"Password"} placeholder={"********"} type={"password"} setState={setPassword} />
+            <Input label={"First Name"} placeholder={"Jhon"} type={"text"} setState={setFirstname} Val={firstname} />
+            <Input label={"Last Name"} value={lastname} placeholder={"Doe"} type={"text"} setState={setLastName} Val={lastname} />
+            <Input label={"Email"} value={email} placeholder={"jhondeo@example.com"} type={"email"} setState={setEmail} Val={email} />
+            <Input label={"Password"} value={password} placeholder={"********"} type={"password"} setState={setPassword} Val={password} />
             {/* <Footer buttonTxt={"Sign Up"} route={"Login"} warnningTxt={"Already have an account? "}/> */}
             <div className="mt-4 text-center">
 
                 <button className=" bg-[#18181A] text-white w-full rounded-md py-1" onClick={() => {
 
                     userSignup({ fname: firstname, lname: lastname, email: email, pass: password })
-
+                    setFirstname("")
+                    setLastName("")
+                    setEmail("")
+                    setPassword("")
                 }}>Sign Up</button>
                 <div className="mt-2"> Already have an account?
                     <Link to={"/signin"}>

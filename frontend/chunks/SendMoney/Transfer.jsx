@@ -23,7 +23,6 @@ export const Transfer = () => {
 
     async function transfermoney() {
 
-        console.log("User id = " + toUserId)
         if (amount <= 0) {
 
             setAmount(0)
@@ -45,7 +44,18 @@ export const Transfer = () => {
                 alert("transferd Success")
             }).catch(err => {
 
-                alert("Error in transfer")
+                if (err.response) {
+                    alert(err.response.data.msg)
+                    console.log(err.response)
+                }
+
+                else if (err.request) {
+                    alert("No Response received")
+                }
+
+                else {
+                    alert(err)
+                }
             })
     }
     return <div className="mt-8 w-full">
